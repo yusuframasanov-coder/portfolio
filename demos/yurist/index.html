@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бюро «Параграф»</title>
+<meta name="description" content="Проверка и составление договоров, претензии, регистрация ИП и ООО. Консультация 30 минут — 2 000 ₽.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f4ee; --card:#fdfbf7; --raised:#efe9df; --line:rgba(31,27,22,.09);
+  --t1:#1f1b16; --t2:#5e554a; --t3:#7b7266;
+  --accent:#23407a; --accent-h:#1b3263; --note:#a3401f;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font:400 15px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
+.serif{font-family:Newsreader,Georgia,serif}
+
+/* шапка */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:rgba(247,244,238,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:32px;height:64px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:17px;text-decoration:none}
+.logo b{font-family:Newsreader,serif;font-weight:500;font-size:24px;color:var(--accent);line-height:1}
+.nav ul{display:flex;gap:24px;list-style:none;margin-left:auto}
+.nav ul a{text-decoration:none;color:var(--t2);font-size:14px;transition:color .15s var(--ease)}
+.nav ul a:hover{color:var(--t1)}
+.tel{font-variant-numeric:tabular-nums;font-size:14px;text-decoration:none;color:var(--t1)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border-radius:10px;border:1px solid transparent;font:500 15px Inter,sans-serif;text-decoration:none;cursor:pointer;transition:background-color .15s var(--ease),border-color .15s var(--ease),transform .12s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-p{background:var(--accent);color:#fff}
+.btn-p:hover{background:var(--accent-h)}
+.btn-s{background:transparent;border-color:rgba(31,27,22,.18);color:var(--t1)}
+.btn-s:hover{background:var(--raised)}
+.btn-sm{height:36px;padding:0 16px;font-size:14px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* первый экран */
+.hero{display:grid;grid-template-columns:6fr 7fr;gap:48px;align-items:center;min-height:calc(100vh - 64px);padding-top:64px;padding-bottom:80px}
+.hero h1{font-family:Newsreader,serif;font-weight:400;font-size:60px;line-height:1.04;letter-spacing:-.02em;max-width:12ch}
+.hero p.lead{margin-top:24px;font-size:19px;line-height:1.55;color:var(--t2);max-width:34rem}
+.hero .acts{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+.facts{display:flex;gap:32px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.facts div{font-size:13px;color:var(--t3)}
+.facts b{display:block;font:500 22px Inter;color:var(--t1);font-variant-numeric:tabular-nums;margin-bottom:2px}
+
+/* документ — главный «момент» */
+.doc-stage{position:relative;padding:24px 184px 24px 0}
+.doc{background:#fffdf8;border:1px solid var(--line);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.05),0 24px 48px -16px rgba(60,45,25,.18);padding:40px 40px 48px;transform:rotate(-1.2deg);font-family:Newsreader,serif;color:#2b261f}
+.doc h3{font-weight:500;font-size:17px;text-align:center}
+.doc .meta{display:flex;justify-content:space-between;font:400 12px Inter;color:var(--t3);margin:12px 0 20px}
+.doc p{font-size:14px;line-height:1.6;margin-bottom:10px}
+.doc .ln{height:7px;border-radius:4px;background:#ebe4d7;margin:9px 0}
+.doc .hl{background:linear-gradient(transparent 58%,rgba(163,64,31,.16) 58%);}
+.doc .strike{text-decoration:line-through;text-decoration-color:var(--note);color:#8d8578}
+.doc .ins{color:var(--accent)}
+.margin-note{position:absolute;right:0;width:172px;font:400 13px/1.4 Inter;color:var(--note);padding-left:12px;border-left:1.5px solid var(--note)}
+.margin-note b{font-weight:600;display:block;margin-bottom:2px}
+.mn1{top:120px}.mn2{top:300px}
+.sign{display:flex;justify-content:space-between;margin-top:24px;font:400 12px Inter;color:var(--t3)}
+.sign span{border-top:1px solid #cfc6b6;padding-top:6px;width:42%}
+
+/* разделы */
+section{padding:96px 0}
+.sec-h{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:40px}
+.sec-h h2{font-family:Newsreader,serif;font-weight:400;font-size:40px;line-height:1.1;letter-spacing:-.02em;max-width:18ch}
+.sec-h p{color:var(--t2);max-width:28rem}
+.par{font:500 13px Inter;color:var(--note);margin-bottom:12px;display:block}
+
+.svc{border-top:1px solid var(--line)}
+.svc-row{display:grid;grid-template-columns:48px 1fr 220px 140px;gap:24px;align-items:baseline;padding:24px 0;border-bottom:1px solid var(--line)}
+.svc-row .n{font:400 14px Newsreader,serif;color:var(--t3)}
+.svc-row h3{font-weight:500;font-size:18px}
+.svc-row p{color:var(--t2);font-size:14px;margin-top:4px;max-width:38rem}
+.svc-row .term{color:var(--t3);font-size:14px}
+.svc-row .price{text-align:right;font-weight:500;font-variant-numeric:tabular-nums}
+
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;counter-reset:s}
+.step{padding-top:20px;border-top:1px solid rgba(31,27,22,.2)}
+.step:first-child{border-top-color:var(--accent)}
+.step .k{font:400 32px Newsreader,serif;color:var(--t3);line-height:1}
+.step h3{font-weight:500;font-size:16px;margin:16px 0 8px}
+.step p{color:var(--t2);font-size:14px}
+
+/* запись */
+.book{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:start}
+.book-aside p{color:var(--t2);margin-top:16px}
+.book-aside ul{list-style:none;margin-top:24px;display:grid;gap:12px}
+.book-aside li{display:flex;gap:10px;color:var(--t2);font-size:14px}
+.book-aside li svg{color:var(--t3);margin-top:2px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px}
+.lbl{font-size:13px;font-weight:500;color:var(--t2);margin-bottom:8px;display:block}
+.days{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:24px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 4px;text-align:center;cursor:pointer;font:400 13px Inter;color:var(--t2);transition:background-color .15s var(--ease),border-color .15s var(--ease),color .15s var(--ease)}
+.chip b{display:block;font-size:17px;font-weight:500;color:var(--t1);font-variant-numeric:tabular-nums}
+.chip:hover{border-color:rgba(31,27,22,.25)}
+.chip[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:rgba(255,255,255,.8)}
+.chip[aria-pressed=true] b{color:#fff}
+.chip:disabled{opacity:.4;cursor:not-allowed}
+.times{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:24px}
+.times .chip{padding:10px 4px;font-size:14px;font-variant-numeric:tabular-nums;color:var(--t1)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+input[type=text],input[type=tel],select,textarea{width:100%;height:44px;border:1px solid rgba(31,27,22,.16);background:#fff;border-radius:10px;padding:0 12px;font:400 15px Inter;color:var(--t1);transition:border-color .15s var(--ease)}
+textarea{height:88px;padding:10px 12px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(35,64,122,.12)}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--t2);margin:16px 0 24px}
+.consent input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px}
+.sum{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:20px;border-top:1px solid var(--line)}
+.sum span{font-size:14px;color:var(--t2)}
+.sum span b{color:var(--t1);font-weight:500}
+.ok{display:none;text-align:center;padding:40px 16px}
+.ok h3{font:400 28px Newsreader,serif;margin:16px 0 8px}
+.ok p{color:var(--t2)}
+.ok .tick{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);display:inline-grid;place-items:center}
+.err{color:#b4321f;font-size:13px;margin-top:-12px;margin-bottom:16px;display:none}
+
+/* вопросы */
+.faq{max-width:780px}
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:20px 0;font-weight:500;font-size:17px;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary svg{transition:transform .2s var(--ease);color:var(--t3)}
+details[open] summary svg{transform:rotate(45deg)}
+details p{color:var(--t2);padding-bottom:20px;max-width:640px}
+
+footer{border-top:1px solid var(--line);padding:48px 0;font-size:13px;color:var(--t3)}
+.foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px}
+.foot b{color:var(--t1);font-weight:500;display:block;margin-bottom:8px;font-size:14px}
+.demo{margin-top:32px;padding-top:16px;border-top:1px solid var(--line)}
+
+.menu-btn{display:none;background:none;border:0;color:var(--t1);margin-left:auto;cursor:pointer;padding:8px}
+
+@media (max-width:960px){
+  .hero{grid-template-columns:1fr;gap:48px;min-height:0;padding-top:48px;padding-bottom:64px}
+  .hero h1{font-size:42px}
+  .doc-stage{padding:0 0 0 0}
+  .margin-note{position:static;width:auto;margin-top:16px}
+  .doc{transform:none}
+  .book{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .svc-row{grid-template-columns:32px 1fr;gap:4px 16px}
+  .svc-row .term,.svc-row .price{grid-column:2;text-align:left}
+}
+@media (max-width:720px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .nav ul,.nav .tel,.nav .btn{display:none}
+  .menu-btn{display:block}
+  .nav.open ul{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--bg);padding:16px;border-bottom:1px solid var(--line);gap:16px}
+  .hero h1{font-size:38px}
+  .hero p.lead{font-size:17px}
+  .facts{gap:20px;flex-wrap:wrap}
+  section{padding:64px 0}
+  .sec-h{flex-direction:column;align-items:start;gap:12px}
+  .sec-h h2{font-size:32px}
+  .steps{grid-template-columns:1fr}
+  .days{grid-template-columns:repeat(3,1fr)}
+  .times{grid-template-columns:repeat(3,1fr)}
+  .row2{grid-template-columns:1fr}
+  .panel{padding:20px}
+  .sum{flex-direction:column;align-items:stretch}
+  .sum .btn{justify-content:center}
+  .foot{grid-template-columns:1fr}
+  .doc{padding:24px 20px 32px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><path d="m16 13 5.2 3.5a.5.5 0 0 0 .8-.4V7.9a.5.5 0 0 0-.8-.4L16 11"/><rect x="2" y="6" width="14" height="12" rx="2"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 5-8 12-8 12s-8-7-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap nav" id="nav">
+    <a href="#" class="logo"><b>§</b> Параграф</a>
+    <ul>
+      <li><a href="#uslugi">Услуги и цены</a></li>
+      <li><a href="#kak">Как работаем</a></li>
+      <li><a href="#voprosy">Вопросы</a></li>
+    </ul>
+    <a class="tel" href="tel:+79000000000">+7 900 000-00-00</a>
+    <a class="btn btn-p btn-sm" href="#zapis">Записаться</a>
+    <button class="menu-btn" aria-label="Меню" onclick="document.getElementById('nav').classList.toggle('open')"><svg class="i"><use href="#i-menu"/></svg></button>
+  </div>
+</header>
+
+<main>
+<div class="wrap hero">
+  <div>
+    <h1>Юрист, который читает договор раньше, чем вы его подпишете</h1>
+    <p class="lead">Проверяем и составляем договоры для ИП и небольших компаний, пишем претензии, сопровождаем регистрацию. Отмечаем риски прямо на полях — понятным языком, без латыни.</p>
+    <div class="acts">
+      <a class="btn btn-p" href="#zapis">Записаться на консультацию <svg class="i"><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-s" href="#uslugi">Услуги и цены</a>
+    </div>
+    <div class="facts">
+      <div><b>30 мин</b>консультация — 2 000 ₽</div>
+      <div><b>2 дня</b>проверка договора</div>
+      <div><b>Онлайн</b>или в офисе</div>
+    </div>
+  </div>
+
+  <div class="doc-stage" aria-label="Пример проверенного договора с пометками юриста">
+    <div class="doc">
+      <h3>Договор поставки № 14/11</h3>
+      <div class="meta"><span>г. Москва</span><span>13 ноября 2026 г.</span></div>
+      <p>1.1. Поставщик обязуется передать, а Покупатель — принять и оплатить товар согласно спецификации.</p>
+      <div class="ln" style="width:92%"></div><div class="ln" style="width:78%"></div>
+      <p>4.2. За просрочку оплаты Покупатель уплачивает неустойку <span class="hl">1 % от суммы за каждый день</span> <span class="strike">без ограничения размера</span> <span class="ins">не более 10 % от суммы договора</span>.</p>
+      <div class="ln" style="width:88%"></div><div class="ln" style="width:64%"></div>
+      <p>7.3. Споры рассматриваются <span class="hl">в суде по месту нахождения Поставщика</span>.</p>
+      <div class="ln" style="width:95%"></div><div class="ln" style="width:52%"></div>
+      <div class="sign"><span>Поставщик</span><span>Покупатель</span></div>
+    </div>
+    <div class="margin-note mn1"><b>п. 4.2</b>Неустойка без потолка: за месяц — 30 % суммы. Предлагаем ограничить.</div>
+    <div class="margin-note mn2"><b>п. 7.3</b>Суд в другом городе — дорого. Лучше по месту ответчика.</div>
+  </div>
+</div>
+
+<section id="uslugi">
+  <div class="wrap">
+    <div class="sec-h">
+      <div><span class="par">§ 1</span><h2>Услуги и цены</h2></div>
+      <p>Цена фиксируется до начала работы. Если задача окажется проще — вернём разницу.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-row"><span class="n">1.1</span><div><h3>Консультация</h3><p>Разбираем ситуацию, отвечаем на вопросы, даём план действий. По видеосвязи или в офисе.</p></div><span class="term">30 минут</span><span class="price">2 000 ₽</span></div>
+      <div class="svc-row"><span class="n">1.2</span><div><h3>Проверка договора</h3><p>Пометки на полях по каждому рискованному пункту и готовый протокол разногласий.</p></div><span class="term">1–2 рабочих дня</span><span class="price">от 4 500 ₽</span></div>
+      <div class="svc-row"><span class="n">1.3</span><div><h3>Составление договора</h3><p>Поставка, услуги, подряд, аренда — под вашу сделку, а не из шаблона.</p></div><span class="term">2–3 рабочих дня</span><span class="price">от 8 000 ₽</span></div>
+      <div class="svc-row"><span class="n">1.4</span><div><h3>Претензия должнику</h3><p>Расчёт долга и неустойки, текст претензии, отправка с описью.</p></div><span class="term">1 рабочий день</span><span class="price">3 500 ₽</span></div>
+      <div class="svc-row"><span class="n">1.5</span><div><h3>Регистрация ИП или ООО</h3><p>Выбор налогового режима и кодов деятельности, документы для налоговой.</p></div><span class="term">3–5 рабочих дней</span><span class="price">от 6 000 ₽</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="kak" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-h"><div><span class="par">§ 2</span><h2>Как проходит работа</h2></div></div>
+    <div class="steps">
+      <div class="step"><div class="k">1</div><h3>Заявка</h3><p>Вы выбираете время на сайте. Мы перезваниваем в течение рабочего часа.</p></div>
+      <div class="step"><div class="k">2</div><h3>Документы</h3><p>Присылаете договор или описание ситуации — в мессенджер или на почту.</p></div>
+      <div class="step"><div class="k">3</div><h3>Цена и срок</h3><p>Называем фиксированную стоимость. Работу начинаем после вашего согласия.</p></div>
+      <div class="step"><div class="k">4</div><h3>Результат</h3><p>Документ с пометками или готовый текст и короткий разбор по телефону.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="zapis" style="background:var(--raised)">
+  <div class="wrap book">
+    <div class="book-aside">
+      <span class="par">§ 3</span>
+      <h2 class="serif" style="font-weight:400;font-size:40px;line-height:1.1;letter-spacing:-.02em">Запись на консультацию</h2>
+      <p>Выберите день и время. Перед встречей пришлём ссылку на видеозвонок или адрес офиса.</p>
+      <ul>
+        <li><svg class="i"><use href="#i-video"/></svg>Онлайн — из любого города России</li>
+        <li><svg class="i"><use href="#i-pin"/></svg>Офис: Москва, ул. Примерная, 1, оф. 12</li>
+        <li><svg class="i"><use href="#i-lock"/></svg>Адвокатская тайна и соглашение о конфиденциальности</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <form id="f" novalidate>
+        <span class="lbl" id="dl">День</span>
+        <div class="days" id="days" role="group" aria-labelledby="dl"></div>
+        <span class="lbl" id="tl">Время, по Москве</span>
+        <div class="times" id="times" role="group" aria-labelledby="tl"></div>
+        <div class="row2">
+          <div><label class="lbl" for="nm">Имя</label><input id="nm" type="text" autocomplete="given-name" placeholder="Как к вам обращаться"></div>
+          <div><label class="lbl" for="ph">Телефон</label><input id="ph" type="tel" autocomplete="tel" placeholder="+7 900 000-00-00"></div>
+        </div>
+        <label class="lbl" for="tp">Вопрос</label>
+        <select id="tp" style="margin-bottom:16px">
+          <option>Проверить договор</option><option>Составить договор</option><option>Долг или претензия</option><option>Регистрация бизнеса</option><option>Другое</option>
+        </select>
+        <label class="consent"><input type="checkbox" id="cs"><span>Согласен на обработку персональных данных по <a href="#" onclick="return false">политике конфиденциальности</a></span></label>
+        <div class="err" id="er">Заполните имя, телефон и отметьте согласие</div>
+        <div class="sum">
+          <span id="sumtx">Выберите день и время</span>
+          <button class="btn btn-p" type="submit">Записаться <svg class="i"><use href="#i-arrow"/></svg></button>
+        </div>
+      </form>
+      <div class="ok" id="ok" role="status">
+        <span class="tick"><svg class="i" style="width:22px;height:22px"><use href="#i-check"/></svg></span>
+        <h3>Вы записаны</h3>
+        <p id="oktx"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="voprosy">
+  <div class="wrap">
+    <div class="sec-h"><div><span class="par">§ 4</span><h2>Частые вопросы</h2></div></div>
+    <div class="faq">
+      <details><summary>Можно ли без встречи — просто прислать договор?<svg class="i"><use href="#i-plus"/></svg></summary><p>Да. Пришлите файл, мы назовём цену и срок. Результат придёт на почту: договор с пометками на полях и протокол разногласий.</p></details>
+      <details><summary>Что если договор на английском?<svg class="i"><use href="#i-plus"/></svg></summary><p>Работаем только с русскоязычными договорами. Для договоров на других языках подскажем переводчика.</p></details>
+      <details><summary>Вы ведёте дела в суде?<svg class="i"><use href="#i-plus"/></svg></summary><p>Да, в арбитражных судах и судах общей юрисдикции. Стоимость считается отдельно после изучения документов.</p></details>
+      <details><summary>Как оплатить?<svg class="i"><use href="#i-plus"/></svg></summary><p>По счёту для компаний и ИП или переводом с чеком для частных лиц. Консультация оплачивается после встречи.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><b>§ Параграф</b>Юридическое бюро для малого бизнеса</div>
+      <div><b>Контакты</b>+7 900 000-00-00<br>info@paragraf.example</div>
+      <div><b>Документы</b><a href="#" onclick="return false">Политика конфиденциальности</a></div>
+    </div>
+    <p class="demo">Демо-проект для портфолио. Бюро, адрес и телефон вымышлены, заявки никуда не отправляются.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const days=document.getElementById('days'),times=document.getElementById('times');
+  const wd=['вс','пн','вт','ср','чт','пт','сб'], mon=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];
+  let selD=null, selT=null;
+  const d0=new Date(); let added=0, k=1;
+  while(added<6){
+    const d=new Date(d0); d.setDate(d0.getDate()+k++);
+    if(d.getDay()===0) continue;
+    const b=document.createElement('button'); b.type='button'; b.className='chip'; b.setAttribute('aria-pressed','false');
+    b.innerHTML=wd[d.getDay()]+'<b>'+d.getDate()+'</b>';
+    b.dataset.label=d.getDate()+' '+mon[d.getMonth()]+', '+wd[d.getDay()];
+    b.dataset.seed=d.getDate();
+    b.onclick=()=>{selD=b; mark(days,b); renderTimes(+b.dataset.seed); upd();};
+    days.appendChild(b); added++;
+  }
+  function renderTimes(seed){
+    times.innerHTML=''; selT=null;
+    ['10:00','11:00','12:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'].forEach((t,i)=>{
+      const b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=t; b.setAttribute('aria-pressed','false');
+      if((i*7+seed)%4===0){b.disabled=true; b.title='Занято';}
+      b.onclick=()=>{selT=b; mark(times,b); upd();};
+      times.appendChild(b);
+    });
+  }
+  function mark(box,b){box.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b)); }
+  function upd(){
+    const s=document.getElementById('sumtx');
+    s.innerHTML = selD&&selT ? '<b>'+selD.dataset.label+', '+selT.textContent+'</b> · 30 минут · 2 000 ₽' : selD ? 'Выберите время' : 'Выберите день и время';
+  }
+  days.firstChild.click();
+  document.getElementById('f').addEventListener('submit',e=>{
+    e.preventDefault();
+    const nm=document.getElementById('nm').value.trim(), ph=document.getElementById('ph').value.replace(/\D/g,''), cs=document.getElementById('cs').checked;
+    const er=document.getElementById('er');
+    if(!selT){er.textContent='Выберите время консультации';er.style.display='block';return;}
+    if(!nm||ph.length<10||!cs){er.textContent='Заполните имя, телефон и отметьте согласие';er.style.display='block';return;}
+    er.style.display='none';
+    e.target.style.display='none';
+    document.getElementById('oktx').textContent=nm+', ждём вас '+selD.dataset.label+' в '+selT.textContent+'. Мы позвоним, чтобы подтвердить запись.';
+    document.getElementById('ok').style.display='block';
+  });
+})();
+</script>
+</body>
+</html>

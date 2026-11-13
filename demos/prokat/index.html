@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Прокат «Перевал»</title>
+<meta name="description" content="Прокат автомобилей от 2 500 ₽ в сутки. Подача в аэропорт и по городу, без скрытых доплат.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;
+  --deep:#07080d; --bg:#0b0d14; --card:#11141c; --raised:#1a1e28; --line:rgba(238,240,245,.08);
+  --t1:#eef0f5; --t2:#a3a9b8; --t3:#7a8296;
+  --accent:#f2a33a; --accent-h:#f6b558; --on-accent:#1a1205;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font:400 15px/1.55 "Space Grotesk",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.mono{font-family:"JetBrains Mono",monospace}
+svg.i{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header{position:absolute;top:0;left:0;right:0;z-index:5}
+.nav{display:flex;align-items:center;gap:32px;height:72px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;text-decoration:none}
+.logo svg{color:var(--accent)}
+.nav ul{display:flex;gap:28px;list-style:none;margin-left:auto}
+.nav ul a{color:var(--t2);text-decoration:none;font-size:14px;transition:color .15s var(--ease)}
+.nav ul a:hover{color:var(--t1)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 20px;border-radius:10px;border:1px solid transparent;font:500 15px "Space Grotesk",sans-serif;text-decoration:none;cursor:pointer;transition:background-color .15s var(--ease),transform .12s var(--ease)}
+.btn:active{transform:scale(.98)}
+.btn-p{background:var(--accent);color:var(--on-accent)}
+.btn-p:hover{background:var(--accent-h)}
+.btn-s{background:var(--raised);border-color:var(--line);color:var(--t1);box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+.btn-s:hover{background:#222735}
+.btn-sm{height:36px;font-size:14px;padding:0 16px}
+
+/* первый экран — сцена: горная дорога в сумерках, нарисована кодом */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:var(--deep)}
+.scene{position:absolute;inset:0;width:100%;height:100%}
+.hero-in{position:relative;z-index:2;padding-top:168px;flex:1;display:grid;grid-template-columns:1fr 440px;gap:48px;align-items:start}
+.hero h1{font-weight:500;font-size:64px;line-height:1.02;letter-spacing:-.03em;max-width:11ch}
+.hero .lead{margin-top:20px;font-size:19px;line-height:1.55;color:var(--t2);max-width:30rem}
+.badges{display:flex;gap:24px;margin-top:32px;flex-wrap:wrap}
+.badges span{display:flex;gap:8px;align-items:center;color:var(--t2);font-size:14px}
+.badges svg{color:var(--t3)}
+
+/* калькулятор брони — главный «момент» */
+.calc{background:rgba(17,20,28,.94);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 24px 64px rgba(0,0,0,.45);backdrop-filter:blur(6px)}
+.calc h2{font-size:18px;font-weight:500;margin-bottom:16px}
+.lbl{display:block;font-size:13px;color:var(--t3);margin-bottom:6px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
+input,select{width:100%;height:44px;background:var(--raised);border:1px solid var(--line);border-radius:10px;color:var(--t1);padding:0 12px;font:400 15px "Space Grotesk",sans-serif;color-scheme:dark;transition:border-color .15s var(--ease)}
+input:focus,select:focus{outline:none;border-color:var(--accent)}
+.opts{display:grid;gap:8px;margin-bottom:20px}
+.opt{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--t2);cursor:pointer}
+.opt input{width:16px;height:16px;accent-color:var(--accent)}
+.opt .mono{margin-left:auto;font-size:13px;color:var(--t3)}
+.bill{border-top:1px dashed rgba(238,240,245,.16);padding-top:16px;display:grid;gap:6px;font-size:14px;color:var(--t2)}
+.bill div{display:flex;justify-content:space-between}
+.bill .mono{font-variant-numeric:tabular-nums}
+.total{display:flex;justify-content:space-between;align-items:baseline;margin:12px 0 16px}
+.total span{color:var(--t2);font-size:14px}
+.total b{font:500 32px "JetBrains Mono",monospace;font-variant-numeric:tabular-nums;color:var(--t1)}
+.calc .btn{width:100%}
+.note{font-size:12px;color:var(--t3);margin-top:10px;text-align:center}
+
+/* госномер — фирменная деталь */
+.plate{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--t2);border-radius:5px;padding:1px 6px 1px 8px;font:500 12px "JetBrains Mono",monospace;color:var(--t1);letter-spacing:.02em;white-space:nowrap}
+.plate i{font-style:normal;border-left:1px solid var(--t3);padding-left:5px;font-size:11px;color:var(--t2)}
+
+section{padding:112px 0}
+.sec-h{display:flex;justify-content:space-between;align-items:end;gap:32px;margin-bottom:40px}
+.sec-h h2{font-size:40px;font-weight:500;letter-spacing:-.02em;line-height:1.1}
+.sec-h p{color:var(--t2);max-width:26rem}
+
+.fleet{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.car{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;transition:border-color .15s var(--ease),background-color .15s var(--ease);cursor:pointer;text-align:left;color:inherit;font:inherit}
+.car:hover{border-color:rgba(238,240,245,.18)}
+.car[aria-pressed=true]{border-color:var(--accent);background:#151924}
+.car .top{display:flex;justify-content:space-between;align-items:center}
+.car .cls{font-size:13px;color:var(--t3)}
+.car svg.sil{width:100%;height:96px;margin:16px 0 12px;color:var(--t2)}
+.car h3{font-size:18px;font-weight:500}
+.car .spec{font-size:13px;color:var(--t3);margin-top:4px}
+.car .pr{margin-top:16px;padding-top:12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+.car .pr b{font:500 20px "JetBrains Mono",monospace;font-variant-numeric:tabular-nums}
+.car .pr span{color:var(--t3);font-size:13px}
+
+.terms{display:grid;grid-template-columns:7fr 5fr;gap:48px}
+.tlist{border-top:1px solid var(--line)}
+.tlist div{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:18px 0;border-bottom:1px solid var(--line)}
+.tlist dt{color:var(--t3);font-size:14px}
+.tlist dd{font-size:15px}
+.price-tbl{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px}
+.price-tbl h3{font-size:16px;font-weight:500;margin-bottom:12px}
+.price-tbl table{width:100%;border-collapse:collapse;font-size:14px}
+.price-tbl th{font-weight:400;color:var(--t3);text-align:right;padding:8px 0;border-bottom:1px solid var(--line)}
+.price-tbl th:first-child,.price-tbl td:first-child{text-align:left}
+.price-tbl td{text-align:right;padding:10px 0;border-bottom:1px solid var(--line);font-family:"JetBrains Mono",monospace;font-variant-numeric:tabular-nums;font-size:13px}
+.price-tbl td:first-child{font-family:"Space Grotesk",sans-serif;font-size:14px}
+.price-tbl tr:last-child td{border-bottom:0}
+
+.ok{display:none;text-align:center;padding:24px 0}
+.ok h3{font-size:22px;font-weight:500;margin:12px 0 6px}
+.ok p{color:var(--t2);font-size:14px}
+
+footer{border-top:1px solid var(--line);padding:48px 0;color:var(--t3);font-size:13px;background:var(--deep)}
+.foot{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.foot b{display:block;color:var(--t1);font-weight:500;margin-bottom:6px;font-size:14px}
+.demo{margin-top:32px;padding-top:16px;border-top:1px solid var(--line)}
+
+@media (max-width:1040px){
+  .hero-in{grid-template-columns:1fr;padding-top:120px;padding-bottom:48px}
+  .fleet{grid-template-columns:1fr 1fr}
+  .terms{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .wrap{padding-left:16px;padding-right:16px}
+  .nav ul{display:none}
+  .nav .btn{margin-left:auto}
+  .hero h1{font-size:40px}
+  .hero .lead{font-size:17px}
+  .fleet{grid-template-columns:1fr}
+  section{padding:72px 0}
+  .sec-h{flex-direction:column;align-items:start;gap:12px}
+  .sec-h h2{font-size:30px}
+  .tlist div{grid-template-columns:1fr;gap:4px}
+  .calc{padding:20px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.5 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="sil-sedan" viewBox="0 0 240 90"><path d="M14 64c0-8 4-12 14-14l34-6 26-18c6-4 12-6 20-6h46c8 0 14 2 20 8l18 16 24 4c8 1 12 6 12 14v6H14z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="62" cy="70" r="13" fill="var(--card)" stroke="currentColor" stroke-width="1.5"/><circle cx="180" cy="70" r="13" fill="var(--card)" stroke="currentColor" stroke-width="1.5"/><path d="M96 44l14-14c4-3 8-4 12-4h18v18zM148 26h12c6 0 10 2 14 6l12 12h-38z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/></symbol>
+  <symbol id="sil-suv" viewBox="0 0 240 90"><path d="M16 66V46c0-6 4-10 10-10h30l20-16c4-3 8-4 14-4h70c6 0 10 2 14 6l18 14h18c8 0 14 6 14 12v18z" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="62" cy="70" r="14" fill="var(--card)" stroke="currentColor" stroke-width="1.5"/><circle cx="182" cy="70" r="14" fill="var(--card)" stroke="currentColor" stroke-width="1.5"/><path d="M84 36l12-12h34v12zM140 24h24c4 0 6 1 9 4l9 8h-42z" fill="none" stroke="currentColor" stroke-width="1.2" opacity=".6"/></symbol>
+</svg>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><svg class="i" viewBox="0 0 24 24"><path d="m3 20 6-12 4 7 3-4 5 9z"/></svg>Перевал</a>
+    <ul><li><a href="#park">Автопарк</a></li><li><a href="#usloviya">Условия</a></li><li><a href="tel:+79000000000" class="mono">+7 900 000-00-00</a></li></ul>
+    <a class="btn btn-s btn-sm" href="#bron">Забронировать</a>
+  </div>
+</header>
+
+<main>
+<div class="hero">
+  <svg class="scene" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07080d"/><stop offset=".55" stop-color="#121624"/><stop offset=".78" stop-color="#2a2421"/></linearGradient>
+      <linearGradient id="road" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1a1d26"/><stop offset="1" stop-color="#0d0f15"/></linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#sky)"/>
+    <path d="M0 560 L180 420 L300 500 L470 330 L640 470 L760 390 L900 480 L1080 300 L1260 450 L1440 360 V900 H0Z" fill="#141823"/>
+    <path d="M0 640 L220 520 L380 590 L560 470 L720 560 L900 500 L1100 590 L1300 480 L1440 540 V900 H0Z" fill="#0f121a"/>
+    <path d="M1080 300 L1040 340 L1062 336 L1080 352 L1100 330 L1118 338Z" fill="#2b2f3b"/>
+    <path d="M470 330 L440 360 L462 356 L478 370 L494 350Z" fill="#262a35"/>
+    <path d="M760 900 C 760 760, 980 700, 1060 640 C 1120 596, 1180 584, 1240 572" fill="none" stroke="url(#road)" stroke-width="150"/>
+    <path d="M760 900 C 760 760, 980 700, 1060 640 C 1120 596, 1180 584, 1240 572" fill="none" stroke="#f2a33a" stroke-width="2" stroke-dasharray="18 22" opacity=".55"/>
+    <circle cx="1238" cy="572" r="3" fill="#f6c27a"/><circle cx="1226" cy="575" r="3" fill="#f6c27a"/>
+    <rect width="1440" height="900" fill="#07080d" opacity=".25"/>
+  </svg>
+
+  <div class="wrap hero-in">
+    <div>
+      <h1>Машина ждёт у трапа, а не на стоянке за городом</h1>
+      <p class="lead">Прокат автомобилей от 2 500 ₽ в сутки. Подаём в аэропорт и по городу, цена считается сразу и не меняется у стойки.</p>
+      <div class="badges">
+        <span><svg class="i"><use href="#i-plane"/></svg>Подача в аэропорт</span>
+        <span><svg class="i"><use href="#i-shield"/></svg>ОСАГО и КАСКО включены</span>
+        <span><svg class="i"><use href="#i-clock"/></svg>Выдача за 15 минут</span>
+      </div>
+    </div>
+
+    <div class="calc" id="bron">
+      <form id="f" novalidate>
+        <h2>Расчёт стоимости</h2>
+        <label class="lbl" for="car">Автомобиль</label>
+        <select id="car" style="margin-bottom:16px"></select>
+        <div class="f2">
+          <div><label class="lbl" for="d1">Получение</label><input type="date" id="d1"></div>
+          <div><label class="lbl" for="d2">Возврат</label><input type="date" id="d2"></div>
+        </div>
+        <div class="opts">
+          <label class="opt"><input type="checkbox" data-p="1500" data-once="1" id="o1">Подача в аэропорт<span class="mono">1 500 ₽</span></label>
+          <label class="opt"><input type="checkbox" data-p="300" id="o2">Детское кресло<span class="mono">300 ₽/сут</span></label>
+          <label class="opt"><input type="checkbox" data-p="500" id="o3">Второй водитель<span class="mono">500 ₽/сут</span></label>
+        </div>
+        <div class="bill" id="bill"></div>
+        <div class="total"><span>Итого</span><b id="tot">0 ₽</b></div>
+        <button class="btn btn-p" type="submit">Забронировать <svg class="i"><use href="#i-arrow"/></svg></button>
+        <p class="note">Залог 10 000 ₽ возвращается в день сдачи машины</p>
+      </form>
+      <div class="ok" id="ok" role="status">
+        <svg class="i" style="width:32px;height:32px;color:var(--accent)"><use href="#i-check"/></svg>
+        <h3>Бронь принята</h3>
+        <p id="oktx"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="park">
+  <div class="wrap">
+    <div class="sec-h"><h2>Автопарк</h2><p>Машинам не больше трёх лет. Каждую моют и проверяют перед выдачей.</p></div>
+    <div class="fleet" id="fleet"></div>
+  </div>
+</section>
+
+<section id="usloviya" style="padding-top:0">
+  <div class="wrap terms">
+    <div>
+      <div class="sec-h"><h2>Условия</h2></div>
+      <dl class="tlist">
+        <div><dt>Водитель</dt><dd>От 21 года, стаж от 2 лет</dd></div>
+        <div><dt>Документы</dt><dd>Паспорт и водительское удостоверение</dd></div>
+        <div><dt>Залог</dt><dd>10 000 ₽, возвращаем в день сдачи</dd></div>
+        <div><dt>Пробег</dt><dd>300 км в сутки, сверх — 8 ₽ за км</dd></div>
+        <div><dt>Топливо</dt><dd>Полный бак при выдаче — полный при возврате</dd></div>
+        <div><dt>Выезд за регион</dt><dd>По согласованию, без доплаты</dd></div>
+      </dl>
+    </div>
+    <div class="price-tbl">
+      <h3>Цена за сутки по сроку аренды</h3>
+      <table>
+        <thead><tr><th>Класс</th><th>1–3 дня</th><th>4–7</th><th>от 8</th></tr></thead>
+        <tbody id="ptbl"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><b>Перевал</b>Прокат автомобилей</div>
+      <div><b>Телефон</b><span class="mono">+7 900 000-00-00</span>, ежедневно 8:00–22:00</div>
+      <div><b>Адрес</b>ул. Примерная, 5</div>
+    </div>
+    <p class="demo">Демо-проект для портфолио. Компания и контакты вымышлены, бронь никуда не отправляется.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const cars=[
+    {id:'rio',name:'Kia Rio',cls:'Эконом',spec:'1.6, автомат, 5 мест',p:[2500,2300,2000],sil:'sil-sedan',plate:'А 214 ВК'},
+    {id:'sol',name:'Hyundai Solaris',cls:'Эконом',spec:'1.6, автомат, 5 мест',p:[2700,2450,2150],sil:'sil-sedan',plate:'В 508 МО'},
+    {id:'cam',name:'Toyota Camry',cls:'Бизнес',spec:'2.5, автомат, 5 мест',p:[5500,5000,4500],sil:'sil-sedan',plate:'Е 777 РТ'},
+    {id:'rav',name:'Toyota RAV4',cls:'Кроссовер',spec:'2.0, полный привод',p:[6000,5500,4900],sil:'sil-suv',plate:'К 031 СН'}
+  ];
+  const fmt=n=>n.toLocaleString('ru-RU').replace(/ /g,' ')+' ₽';
+  const sel=document.getElementById('car'), fleet=document.getElementById('fleet'), ptbl=document.getElementById('ptbl');
+  cars.forEach(c=>{
+    sel.add(new Option(c.name+' — от '+fmt(c.p[2])+'/сут',c.id));
+    const b=document.createElement('button'); b.type='button'; b.className='car'; b.dataset.id=c.id; b.setAttribute('aria-pressed','false');
+    b.innerHTML='<div class="top"><span class="cls">'+c.cls+'</span><span class="plate">'+c.plate+'<i>05</i></span></div><svg class="sil" aria-hidden="true"><use href="#'+c.sil+'"/></svg><h3>'+c.name+'</h3><div class="spec">'+c.spec+'</div><div class="pr"><span>от</span><b>'+fmt(c.p[2])+'</b></div>';
+    b.onclick=()=>{sel.value=c.id; calc(); document.getElementById('bron').scrollIntoView({behavior:'smooth',block:'center'});};
+    fleet.appendChild(b);
+    ptbl.insertAdjacentHTML('beforeend','<tr><td>'+c.name+'</td><td>'+c.p[0].toLocaleString('ru-RU')+'</td><td>'+c.p[1].toLocaleString('ru-RU')+'</td><td>'+c.p[2].toLocaleString('ru-RU')+'</td></tr>');
+  });
+  const iso=d=>d.toISOString().slice(0,10);
+  const t=new Date(); t.setDate(t.getDate()+1); const t2=new Date(t); t2.setDate(t.getDate()+3);
+  const d1=document.getElementById('d1'), d2=document.getElementById('d2');
+  d1.value=iso(t); d2.value=iso(t2); d1.min=iso(new Date());
+  let shown=0;
+  function calc(){
+    const c=cars.find(x=>x.id===sel.value);
+    if(new Date(d2.value)<=new Date(d1.value)){const n=new Date(d1.value);n.setDate(n.getDate()+1);d2.value=iso(n);}
+    d2.min=d1.value;
+    const days=Math.max(1,Math.round((new Date(d2.value)-new Date(d1.value))/864e5));
+    const rate=days>=8?c.p[2]:days>=4?c.p[1]:c.p[0];
+    let rows=[[c.name+', '+days+' '+pl(days)+' × '+fmt(rate),rate*days]];
+    document.querySelectorAll('.opts input').forEach(o=>{ if(o.checked){const p=+o.dataset.p; rows.push([o.parentNode.childNodes[1].textContent.trim(), o.dataset.once?p:p*days]);}});
+    document.getElementById('bill').innerHTML=rows.map(r=>'<div><span>'+r[0]+'</span><span class="mono">'+fmt(r[1])+'</span></div>').join('');
+    tween(rows.reduce((s,r)=>s+r[1],0));
+    fleet.querySelectorAll('.car').forEach(b=>b.setAttribute('aria-pressed',b.dataset.id===c.id));
+  }
+  function pl(n){const a=n%10,b=n%100;return a===1&&b!==11?'сутки':'суток';}
+  function tween(to){
+    const el=document.getElementById('tot'), from=shown, st=performance.now();
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){el.textContent=fmt(to);shown=to;return;}
+    (function step(now){const k=Math.min(1,(now-st)/350), e=1-Math.pow(1-k,3); el.textContent=fmt(Math.round(from+(to-from)*e)); if(k<1)requestAnimationFrame(step); else shown=to;})(st);
+  }
+  [sel,d1,d2,...document.querySelectorAll('.opts input')].forEach(x=>x.addEventListener('change',calc));
+  calc();
+  document.getElementById('f').addEventListener('submit',e=>{
+    e.preventDefault();
+    const c=cars.find(x=>x.id===sel.value);
+    e.target.style.display='none';
+    document.getElementById('oktx').textContent=c.name+' с '+new Date(d1.value).toLocaleDateString('ru-RU')+' по '+new Date(d2.value).toLocaleDateString('ru-RU')+'. Перезвоним в течение 10 минут, чтобы подтвердить.';
+    document.getElementById('ok').style.display='block';
+  });
+})();
+</script>
+</body>
+</html>
