@@ -1,6 +1,6 @@
 # Уведомление в приложение GitHub, когда Claude открывает Pull Request.
 # PR создаётся от имени владельца, а о своих действиях GitHub не уведомляет —
-# поэтому бот оставляет комментарий, и на телефон приходит push.
+# поэтому бот оставляет комментарий с упоминанием владельца — в GitHub Mobile это push «Direct Mentions».
 name: Уведомление о правке
 on:
   pull_request:
@@ -15,5 +15,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
+          OWNER: ${{ github.repository_owner }}
+          TITLE: ${{ github.event.pull_request.title }}
         run: |
-          gh pr comment "$PR_URL" --body "Правка готова к проверке. Откройте вкладку «Files changed». Всё хорошо — нажмите Merge. Нужно исправить — напишите Claude в той же сессии."
+          gh pr comment "$PR_URL" --body "@$OWNER правка готова к проверке: $TITLE. Откройте вкладку «Files changed». Всё хорошо — нажмите Merge. Нужно исправить — напишите Claude в той же сессии."
