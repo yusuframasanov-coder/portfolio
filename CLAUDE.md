@@ -15,4 +15,4 @@
 - Перед PR — агент qa-tester (адаптив 360/768/1280, ссылки, формы, опечатки).
 - В описании PR: что изменено и в каких файлах.
 
-Агенты: `.claude/agents/` (brief-analyst, copywriter, frontend-dev, qa-tester, legal-compliance).
+Агенты: `.claude/agents/` — brief-analyst, copywriter, ui-designer, frontend-dev, seo-specialist, integrations, legal-compliance, qa-tester, deploy-ops (ничего без «да»), client-support.
