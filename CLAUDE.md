@@ -16,3 +16,8 @@
 - В описании PR: что изменено и в каких файлах.
 
 Агенты: `.claude/agents/` — brief-analyst, copywriter, ui-designer, frontend-dev, seo-specialist, integrations, legal-compliance, qa-tester, deploy-ops (ничего без «да»), client-support.
+
+## Облачная сессия: навыки и общие правила (с 22.11.2026)
+- Навыки (в том числе автотестировщик `qa-autotest`) и общие правила хранятся в приватном репозитории GitHub `yusuframasanov-coder/claude-config`. Обычно скрипт настройки облачного окружения сам запускает его `install.sh`.
+- Запасной путь — в начале облачной сессии (claude.ai/code), если нет файла `~/.claude/skills/qa-autotest/branch.sh`: подключить репозиторий `claude-config` (инструмент add_repo; если его нет — `git clone https://github.com/yusuframasanov-coder/claude-config ~/claude-config`), затем `bash <папка claude-config>/install.sh`. После этого общие правила лежат в `~/.claude/CLAUDE.md`, автотестировщик — в `~/.claude/skills/qa-autotest`; прочитать `~/.claude/CLAUDE.md`.
+- Правка навыка или общих правил — только в репозитории `claude-config` (ветка → Pull Request), не в `~/.claude` напрямую.
